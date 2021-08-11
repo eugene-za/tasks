@@ -7,31 +7,33 @@ function calcPerimeter(field) {
 
     let perimeter = 0; // Stores total perimeter length
 
-    // Iterate each y-axis
-    for (let y = 0; field.length > y; y++) {
+    // Iterate each Y-axis
+    for (let posY = 0; field.length > posY; posY++) {
 
-        // Iterate each x-axis cell on the y-axis
-        for (let x = 0; field[y].length > x; x++) {
+        // Iterate each cell with X-coordinate on Y-axis
+        for (let posX = 0; field[posY].length > posX; posX++) {
 
-            // If building body detected then find its adjacent parts
-            if (field[y][x] === 'X') {
+            // If building body detected then calculate its perimeter
+            if (field[posY][posX] === 'X') {
 
-                // Preparing the possible coordinates of the adjacent cells
-                let coordinates = [
-                    {'x': x, 'y': y - 1}, // top side cell coordinates
-                    {'x': x + 1, 'y': y}, // right side cell coordinates
-                    {'x': x - 1, 'y': y}, // bottom side cell coordinates
-                    {'x': x, 'y': y + 1} // left side cell coordinates
-                ];
+                // Preparing and iterating each side as a possible position for an adjacent building
+                [
+                    [posY - 1, posX], // top side
+                    [posY + 1, posX], // bottom side
+                    [posY, posX - 1], // left side
+                    [posY, posX + 1]  // right side
+                ]
+                .forEach(function (pos) {
 
-                // Checking each possible adjacent cell
-                for (i = 0; i < 4; i++) {
+                    // If adjacent cell doesn't not found or do not contain part of the building
+                    if (!(field[pos[0]] && field[pos[0]][pos[1]] === 'X')) {
 
-                    // If adjacent cell doesn't not found or do not contain part of the building, then adding side perimeter
-                    if (!(field[coordinates[i].y] && field[coordinates[i].y][coordinates[i].x] === 'X')) {
+                        // Adding the current side length
                         perimeter++;
                     }
-                }
+
+                });
+
             }
         }
     }
