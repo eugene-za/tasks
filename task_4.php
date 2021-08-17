@@ -1,6 +1,6 @@
 <?php
 /**
- * The function calculates a sum of all carried digits by adding 3-digit numbers.
+ * The function calculates a sum of all carried digits by adding numbers.
  * @param array $arr The array with numbers
  * @return int Total count of carry
  */
@@ -20,8 +20,11 @@ function carry(array $arr): int
 
         $carry = 0; // Stores the carry for next iteration by digit places
 
-        // Iterate each digit place of the 3-digit number
-        for ($place = 0; 3 > $place; $place++) {
+        // Getting the length of the maximum length number string
+        $max_length = max(strlen($str_a), strlen($str_b));
+
+        // Iterate each digit place of the number
+        for ($place = 0; $max_length > $place; $place++) {
 
             // Preparing digits of current place
             $digit_a = (int)$str_a[$place];
